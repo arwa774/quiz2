@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stress Level Quiz</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #ffffff;
+      color: #333;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #2575fc;
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .question p {
+      font-weight: bold;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+    button {
+      background: #6a11cb;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #2575fc;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    #result h2 {
+      color: #2575fc;
+    }
+    footer {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Stress Level Quiz</h1>
+    <p>Answer these 5 questions to assess your stress level.</p>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. How often do you feel overwhelmed with tasks?</p>
+        <input type="radio" name="q1" value="3" required> Often<br>
+        <input type="radio" name="q1" value="2"> Sometimes<br>
+        <input type="radio" name="q1" value="1"> Rarely<br>
+        <input type="radio" name="q1" value="0"> Never
+      </div>
+      <div class="question">
+        <p>2. How often do you have difficulty sleeping due to stress?</p>
+        <input type="radio" name="q2" value="3" required> Often<br>
+        <input type="radio" name="q2" value="2"> Sometimes<br>
+        <input type="radio" name="q2" value="1"> Rarely<br>
+        <input type="radio" name="q2" value="0"> Never
+      </div>
+      <div class="question">
+        <p>3. Do you frequently feel irritable or easily frustrated?</p>
+        <input type="radio" name="q3" value="3" required> Often<br>
+        <input type="radio" name="q3" value="2"> Sometimes<br>
+        <input type="radio" name="q3" value="1"> Rarely<br>
+        <input type="radio" name="q3" value="0"> Never
+      </div>
+      <div class="question">
+        <p>4. Do you experience physical symptoms like headaches or muscle tension?</p>
+        <input type="radio" name="q4" value="3" required> Often<br>
+        <input type="radio" name="q4" value="2"> Sometimes<br>
+        <input type="radio" name="q4" value="1"> Rarely<br>
+        <input type="radio" name="q4" value="0"> Never
+      </div>
+      <div class="question">
+        <p>5. How often do you feel unable to control events in your life?</p>
+        <input type="radio" name="q5" value="3" required> Often<br>
+        <input type="radio" name="q5" value="2"> Sometimes<br>
+        <input type="radio" name="q5" value="1"> Rarely<br>
+        <input type="radio" name="q5" value="0"> Never
+      </div>
+      <button type="button" onclick="calculateStress()">Submit</button>
+    </form>
+    <div id="result"></div>
+    <footer>
+      &copy; 2024 Stress Level Quiz. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    function calculateStress() {
+      const form = document.getElementById('quizForm');
+      const resultDiv = document.getElementById('result');
+      let totalScore = 0;
+      const maxScore = 15; // 5 questions, each with a max value of 3
+      const formData = new FormData(form);
+
+      for (let value of formData.values()) {
+        totalScore += parseInt(value, 10);
+      }
+
+      const stressPercentage = (totalScore / maxScore) * 100;
+      resultDiv.innerHTML = `<h2>Your Stress Level: ${stressPercentage.toFixed(1)}%</h2>`;
+
+      if (stressPercentage >= 75) {
+        resultDiv.innerHTML += `<p><strong>High Stress:</strong> Consider seeking support or practicing stress management techniques.</p>`;
+      } else if (stressPercentage >= 50) {
+        resultDiv.innerHTML += `<p><strong>Moderate Stress:</strong> It's a good idea to take steps to manage it effectively.</p>`;
+      } else {
+        resultDiv.innerHTML += `<p><strong>Low Stress:</strong> Keep maintaining a healthy balance!</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
